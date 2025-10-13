@@ -1,0 +1,34 @@
+#!/bin/bash
+set -uex
+
+if [ "$(arch)" = "x86_64" ]; then
+    K3S_ARCH=""
+elif [ "$(arch)" = "aarch64" ]; then
+    K3S_ARCH="-arm64"
+elif grep -qE '^arm.l$'; then
+    K3S_ARCH="-armhf"
+else
+    printf '%s\n' 'Not supported arch.'
+    exit 1
+fi
+
+mkdir -p "${DESTDIR}/usr/local/bin"
+
+latest_version="$(curl -sSL https://api.github.com/repos/k3s-io/k3s/releases/latest | jq -Mcr '.tag_name')"
+wget "https://ghfast.top/https://github.com/k3s-io/k3s/releases/download/${latest_version}/k3s${K3S_ARCH}" \
+    -qO "${DESTDIR}/usr/local/bin/k3s" -t 3
+
+chown 0:0 "${DESTDIR}/usr/local/bin/k3s" && \
+    chmod 755 "${DESTDIR}/usr/local/bin/k3s"
+
+ln -sf k3s "${DESTDIR}/usr/local/bin/crictl"
+ln -sf k3s "${DESTDIR}/usr/local/bin/ctr"
+ln -sf k3s "${DESTDIR}/usr/local/bin/kubectl"
+
+mkdir -p "${DESTDIR}/var/lib/rancher" \
+    "${DESTDIR}/var/lib/kubelet" \
+    "${DESTDIR}/var/lib/cni" \
+    "${DESTDIR}/etc/rancher" \
+    "${DESTDIR}/usr/libexec/kubernetes/kubelet-plugins/volume/exec/" \
+    "${DESTDIR}/var/log/pods" \
+    "${DESTDIR}/var/log/containers"
