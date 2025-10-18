@@ -9,8 +9,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type=notify
-EnvironmentFile=-/etc/default/%N
-EnvironmentFile=-/etc/sysconfig/%N
+EnvironmentFile=-/etc/rancher/k3s/env
 KillMode=process
 Delegate=yes
 User=root
@@ -23,9 +22,10 @@ Restart=always
 RestartSec=5s
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
+ExecStartPre=-/usr/local/bin/prepare.sh
 StateDirectory=rancher kubelet cni
-ConfigurationDirectory=rancher rancher/k3s
+ConfigurationDirectory=rancher
 LogsDirectory=containers pods
 RuntimeDirectory=nri
 BindReadOnlyPaths=/etc/passwd /etc/group
-ExecStart=/usr/local/bin/k3s server
+ExecStart=/usr/local/bin/k3s server $K3S_OPTS
