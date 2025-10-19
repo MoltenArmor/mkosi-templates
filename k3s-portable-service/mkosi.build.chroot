@@ -15,7 +15,7 @@ fi
 mkdir -p "${DESTDIR}/usr/local/bin"
 
 latest_version="$(curl -sSL https://api.github.com/repos/k3s-io/k3s/releases/latest | jq -Mcr '.tag_name')"
-wget "https://ghfast.top/https://github.com/k3s-io/k3s/releases/download/${latest_version}/k3s${K3S_ARCH}" \
+wget "https://github.com/k3s-io/k3s/releases/download/${latest_version}/k3s${K3S_ARCH}" \
     -qO "${DESTDIR}/usr/local/bin/k3s" -t 3
 
 chown 0:0 "${DESTDIR}/usr/local/bin/k3s" && \
@@ -29,6 +29,9 @@ mkdir -p "${DESTDIR}/var/lib/rancher" \
     "${DESTDIR}/var/lib/kubelet" \
     "${DESTDIR}/var/lib/cni" \
     "${DESTDIR}/etc/rancher" \
+    "${DESTDIR}/etc/ssl" \
+    "${DESTDIR}/etc/pki" \
+    "${DESTDIR}/usr/lib/ssl" \
     "${DESTDIR}/usr/libexec/kubernetes/kubelet-plugins/volume/exec/" \
     "${DESTDIR}/var/log/pods" \
     "${DESTDIR}/var/log/containers"

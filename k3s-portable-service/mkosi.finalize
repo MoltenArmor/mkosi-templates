@@ -1,6 +1,9 @@
 #!/bin/bash
 set -uex
 
+mkdir -p "$BUILDROOT/usr/share/ca-certificates" \
+    "$BUILDROOT/usr/share/pki"
+
 touch "$BUILDROOT/etc/resolv.conf"
 
 cat << 'EOT' >> "$BUILDROOT/usr/lib/os-release"
