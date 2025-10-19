@@ -1,11 +1,11 @@
 #!/bin/bash
 set -uex
 
-mkdir -p "$BUILDROOT/usr/share/ca-certificates" \
-    "$BUILDROOT/usr/share/pki"
+mkdir -p "${BUILDROOT}/usr/share/ca-certificates" \
+    "${BUILDROOT}/usr/share/pki"
 
-touch "$BUILDROOT/etc/resolv.conf"
+touch "${BUILDROOT}/etc/resolv.conf"
 
-cat << 'EOT' >> "$BUILDROOT/usr/lib/os-release"
+cat << 'EOT' >> "${BUILDROOT}/usr/lib/os-release"
 PORTABLE_PREFIXES=k3s
 EOT
