@@ -1,11 +1,11 @@
 #!/bin/bash
 set -uex
 
-if [ "$(arch)" = "x86_64" ]; then
+if [ "$ARCHITECTURE" = "x86-64" ]; then
     K3S_ARCH=""
-elif [ "$(arch)" = "aarch64" ]; then
+elif [ "$ARCHITECTURE" = "arm64" ]; then
     K3S_ARCH="-arm64"
-elif grep -qE '^arm.l$' <<< "$(arch)"; then
+elif grep -qE '^arm.*$' <<< "${ARCHITECTURE}"; then
     K3S_ARCH="-armhf"
 else
     printf "%s\n" "Not supported arch."
@@ -14,9 +14,9 @@ fi
 
 mkdir -p "${DESTDIR}/usr/local/bin"
 
-latest_version="$(curl -sSL https://api.github.com/repos/k3s-io/k3s/releases/latest | jq -Mcr '.tag_name')"
+latest="$(curl -sSL https://api.github.com/repos/k3s-io/k3s/releases/latest | jq -Mcr '.tag_name')"
 wget \
-    "https://github.com/k3s-io/k3s/releases/download/${latest_version}/k3s${K3S_ARCH}" \
+    "https://github.com/k3s-io/k3s/releases/download/${latest}/k3s${K3S_ARCH}" \
     -qO "${DESTDIR}/usr/local/bin/k3s" -t 3
 
 chown 0:0 "${DESTDIR}/usr/local/bin/k3s" &&
