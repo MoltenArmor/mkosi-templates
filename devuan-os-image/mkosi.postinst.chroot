@@ -5,9 +5,3 @@ set -uex
 
 sed -i "s#^pf::powerwait.*#pf::powerwait:/sbin/poweroff#" /etc/inittab
 
-printf '%s\n' 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
-locale-gen
-update-locale LANG=en_US.UTF-8
-
-# Cleanup temporary shadow paths
-rm /etc/*-
