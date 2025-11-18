@@ -1,0 +1,8 @@
+# Copied from https://github.com/ifupdown-ng/ifupdown-ng/blob/main/dist/debian/networking.default
+#
+# Defaults for ifupdown-ng networking service
+#
+
+# Change the below to "yes" if you want ifup/ifdown and it's executors to be
+# verbose about what's going on
+VERBOSE="no"

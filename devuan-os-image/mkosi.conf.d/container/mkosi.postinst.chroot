@@ -2,3 +2,5 @@
 set -ue
 
 sed -i '/tty[1-6]/s/^/#/' /etc/inittab
+
+sed -i '/^#C0:[0-9]*:respawn:/s/^#//' /etc/inittab
