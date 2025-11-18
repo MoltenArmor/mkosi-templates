@@ -3,3 +3,5 @@ set -ue
 
 ln -s agetty /etc/init.d/agetty.console
 ln -s agetty /etc/conf.d/agetty.console
+
+rm -f /etc/runlevel/*/cgroups
