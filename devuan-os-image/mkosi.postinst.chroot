@@ -5,3 +5,4 @@ set -uex
 
 sed -i "s#^pf::powerwait.*#pf::powerwait:/sbin/poweroff#" /etc/inittab
 
+sed -i '/^#C0:[0-9]*:respawn:/s/^#//' /etc/inittab
