@@ -4,4 +4,5 @@ set -ue
 for i in $(seq 1 6); do
     ln -s agetty "/etc/init.d/agetty.tty${i}"
     ln -s agetty "/etc/conf.d/agetty.tty${i}"
+    ln -s "/etc/init.d/agetty.tty${i}" "/etc/runlevel/sysinit/agetty.tty${i}"
 done
