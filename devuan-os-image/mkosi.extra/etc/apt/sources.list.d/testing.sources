@@ -2,4 +2,4 @@ Types: deb
 URIs: http://deb.devuan.org/merged
 Suites: testing
 Components: main contrib non-free non-free-firmware
-Singed-By: /usr/share/keyrings/devuan-archive-keyring.pgp
+Signed-By: /usr/share/keyrings/devuan-archive-keyring.pgp
